@@ -28,7 +28,7 @@ function App() {
           </h1>
 
           <p style={{ marginTop: "10px", color: "#9ca3af" }}>
-            I build fast, responsive & modern web experiences
+            I help businesses build fast, modern & conversion-focused websites
           </p>
 
           <p style={{
@@ -49,8 +49,7 @@ function App() {
                 borderRadius: "10px",
                 marginRight: "10px",
                 border: "none",
-                cursor: "pointer",
-                transition: "0.3s"
+                cursor: "pointer"
               }}>
                 Hire Me
               </button>
@@ -62,8 +61,7 @@ function App() {
               borderRadius: "10px",
               background: "transparent",
               color: "white",
-              cursor: "pointer",
-              transition: "0.3s"
+              cursor: "pointer"
             }}>
               View Projects
             </button>
@@ -79,25 +77,31 @@ function App() {
           flexWrap: "wrap"
         }}>
 
-          {/* CARD */}
           <div style={cardStyle}>
-            <h3>SaaS Landing Page</h3>
+            <h3>University Website UI</h3>
             <p style={{ color: "#9ca3af" }}>
-              Modern landing page for a startup product
+              Full responsive website for an educational institution
             </p>
           </div>
 
           <div style={cardStyle}>
-            <h3>Landing Page</h3>
+            <h3>Personal Portfolio Website</h3>
             <p style={{ color: "#9ca3af" }}>
-              Business responsive design
+              Modern portfolio website to showcase projects and skills
             </p>
           </div>
 
           <div style={cardStyle}>
-            <h3>E-commerce UI</h3>
+            <h3>Business Web App UI</h3>
             <p style={{ color: "#9ca3af" }}>
-              Shopping interface design
+              Dashboard-style web application with clean UI
+            </p>
+          </div>
+
+          <div style={cardStyle}>
+            <h3>Restaurant Website</h3>
+            <p style={{ color: "#9ca3af" }}>
+              Food business website with menu and contact section
             </p>
           </div>
 
@@ -112,6 +116,18 @@ function App() {
             <li>✔ Fully responsive websites</li>
             <li>✔ Fast loading performance</li>
             <li>✔ Client-focused development</li>
+          </ul>
+        </div>
+
+        {/* WHAT I CAN DO */}
+        <div style={{ padding: "40px 0" }}>
+          <h2 style={{ fontSize: "30px" }}>What I Can Do For You</h2>
+
+          <ul style={{ marginTop: "20px", color: "#9ca3af", lineHeight: "1.8" }}>
+            <li>✔ Website design from scratch</li>
+            <li>✔ Convert Figma to website</li>
+            <li>✔ Fix website bugs</li>
+            <li>✔ Improve website speed</li>
           </ul>
         </div>
 
@@ -136,26 +152,14 @@ function App() {
   );
 }
 
-/* PREMIUM CARD STYLE */
+/* CARD STYLE */
 const cardStyle = {
   background: "#111827",
   padding: "25px",
   borderRadius: "16px",
   width: "260px",
   cursor: "pointer",
-  transition: "0.3s",
-  boxShadow: "0 0 0 transparent"
-};
-
-/* HOVER EFFECT (JS WAY) */
-cardStyle.onMouseEnter = (e) => {
-  e.currentTarget.style.transform = "translateY(-8px)";
-  e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.4)";
-};
-
-cardStyle.onMouseLeave = (e) => {
-  e.currentTarget.style.transform = "translateY(0)";
-  e.currentTarget.style.boxShadow = "none";
+  transition: "0.3s"
 };
 
 export default App;
