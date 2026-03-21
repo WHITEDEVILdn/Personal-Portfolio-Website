@@ -69,43 +69,69 @@ function App() {
         </div>
 
         {/* PROJECTS */}
-        <div style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "25px",
-          marginTop: "40px",
-          flexWrap: "wrap"
-        }}>
+<div style={{
+  display: "flex",
+  justifyContent: "center",
+  gap: "25px",
+  marginTop: "40px",
+  flexWrap: "wrap"
+}}>
 
-          <div style={cardStyle}>
-            <h3>University Website UI</h3>
-            <p style={{ color: "#9ca3af" }}>
-              Full responsive website for an educational institution
-            </p>
-          </div>
+  {/* PROJECT 1 */}
+  <div style={cardStyle}>
+    <h3>University Website UI</h3>
+    <p style={{ color: "#9ca3af" }}>
+      Full responsive website for an educational institution
+    </p>
 
-          <div style={cardStyle}>
-            <h3>Personal Portfolio Website</h3>
-            <p style={{ color: "#9ca3af" }}>
-              Modern portfolio website to showcase projects and skills
-            </p>
-          </div>
+    <div style={{ marginTop: "15px" }}>
+      <a href="https://github.com/WHITEDEVILdn/UNIVERSITY-WEBSITE" target="_blank">
+        <button style={btnStyle}>Code</button>
+      </a>
+    </div>
+  </div>
 
-          <div style={cardStyle}>
-            <h3>Business Web App UI</h3>
-            <p style={{ color: "#9ca3af" }}>
-              Dashboard-style web application with clean UI
-            </p>
-          </div>
+  {/* PROJECT 2 */}
+  <div style={cardStyle}>
+    <h3>Personal Portfolio Website</h3>
+    <p style={{ color: "#9ca3af" }}>
+      Modern portfolio website to showcase projects
+    </p>
 
-          <div style={cardStyle}>
-            <h3>Restaurant Website</h3>
-            <p style={{ color: "#9ca3af" }}>
-              Food business website with menu and contact section
-            </p>
-          </div>
+    <div style={{ marginTop: "15px" }}>
+      <a href="https://personal-portfolio-website-livid-psi.vercel.app" target="_blank" rel="noopener noreferrer">
+  <button style={btnStyle}>Live</button>
+</a>
+    </div>
+  </div>
 
-        </div>
+  {/* PROJECT 3 */}
+  <div style={cardStyle}>
+    <h3>Business Web App UI</h3>
+    <p style={{ color: "#9ca3af" }}>
+      Dashboard-style web application UI
+    </p>
+
+    <div style={{ marginTop: "15px" }}>
+      <a href="https://github.com/WHITEDEVILdn/web-application-" target="_blank">
+        <button style={btnStyle}>Code</button>
+      </a>
+    </div>
+  </div>
+
+  {/* PROJECT 4 */}
+  <div style={cardStyle}>
+    <h3>Restaurant Website</h3>
+    <p style={{ color: "#9ca3af" }}>
+      Food business website with menu and contact
+    </p>
+
+    <div style={{ marginTop: "15px" }}>
+      <button style={btnStyle}>Demo</button>
+    </div>
+  </div>
+
+</div>
 
         {/* WHY ME */}
         <div style={{ padding: "70px 0" }}>
@@ -161,5 +187,14 @@ const cardStyle = {
   cursor: "pointer",
   transition: "0.3s"
 };
-
+const btnStyle = {
+  background: "#facc15",
+  color: "black",
+  padding: "8px 16px",
+  borderRadius: "8px",
+  border: "none",
+  cursor: "pointer",
+  marginRight: "10px",
+  fontSize: "14px"
+};
 export default App;
