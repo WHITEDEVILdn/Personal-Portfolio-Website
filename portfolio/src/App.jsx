@@ -1,200 +1,285 @@
-function App() {
-  return (
-    <div style={{
-      background: "#0b0f19",
-      color: "white",
-      minHeight: "100vh",
-      width: "100%",
-      fontFamily: "sans-serif"
-    }}>
+/* eslint-disable react/prop-types */
+import { motion } from "framer-motion";
+import { ReactTyped } from "react-typed";
+import { useState } from "react";
 
-      <div style={{
-        padding: "60px 20px",
-        maxWidth: "1200px",
-        margin: "auto"
-      }}>
+function App() {
+  const [showProjects, setShowProjects] = useState(false);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  return (
+    <div
+      onMouseMove={(e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 20;
+        const y = (e.clientY / window.innerHeight - 0.5) * 20;
+        setMouse({ x, y });
+        setPos({ x: e.clientX, y: e.clientY });
+      }}
+      style={mainStyle}
+    >
+
+      {/* GRID */}
+      <div style={gridBg}></div>
+
+      {/* CURSOR GLOW */}
+      <motion.div
+        animate={{ x: pos.x - 120, y: pos.y - 120 }}
+        transition={{ type: "spring", stiffness: 50 }}
+        style={cursorGlow}
+      />
+
+      <div style={container}>
 
         {/* HERO */}
-        <div style={{
-          textAlign: "center",
-          padding: "120px 20px"
-        }}>
-          <h1 style={{
-            fontSize: "48px",
-            fontWeight: "bold",
-            letterSpacing: "1px"
-          }}>
-            Vaibhav Sharma
-          </h1>
+        <motion.div style={hero} animate={{ x: mouse.x * 0.5, y: mouse.y * 0.5 }}>
 
-          <p style={{ marginTop: "10px", color: "#9ca3af" }}>
-            I help businesses build fast, modern & conversion-focused websites
-          </p>
+          <div style={{ flex: 1 }}>
+            <h1 style={heading}>Hi, I'm Vaibhav 👋</h1>
 
-          <p style={{
-            marginTop: "15px",
-            color: "#facc15",
-            fontWeight: "bold"
-          }}>
-            Available for Freelance Work
-          </p>
+            <ReactTyped
+              strings={["Frontend Developer", "React Developer", "Freelancer"]}
+              typeSpeed={50}
+              backSpeed={30}
+              loop
+              style={typed}
+            />
 
-          {/* BUTTONS */}
-          <div style={{ marginTop: "25px" }}>
-            <a href="mailto:vaibhav9997258362@gmail.com">
-              <button style={{
-                background: "#facc15",
-                color: "black",
-                padding: "12px 24px",
-                borderRadius: "10px",
-                marginRight: "10px",
-                border: "none",
-                cursor: "pointer"
-              }}>
+            <div style={{ marginTop: 20 }}>
+              {/* ✅ WORKING BUTTON */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                style={btnPrimary}
+                onClick={() =>
+                  window.open("mailto:vaibhav9997258362@gmail.com", "_blank")
+                }
+              >
                 Hire Me
-              </button>
-            </a>
+              </motion.button>
 
-            <button style={{
-              border: "1px solid #9ca3af",
-              padding: "12px 24px",
-              borderRadius: "10px",
-              background: "transparent",
-              color: "white",
-              cursor: "pointer"
-            }}>
-              View Projects
-            </button>
+              {/* PROJECT DROPDOWN */}
+              <div
+                style={{ position: "relative", display: "inline-block" }}
+                onMouseEnter={() => setShowProjects(true)}
+                onMouseLeave={() => setShowProjects(false)}
+              >
+                <motion.button whileHover={{ scale: 1.05 }} style={btnOutline}>
+                  View Projects
+                </motion.button>
+
+                {showProjects && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={dropdown}
+                  >
+                    <ProjectCard title="University Website" mouse={mouse} />
+                    <ProjectCard title="Portfolio Website" mouse={mouse} />
+                  </motion.div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* PROJECTS */}
-<div style={{
-  display: "flex",
-  justifyContent: "center",
-  gap: "25px",
-  marginTop: "40px",
-  flexWrap: "wrap"
-}}>
+          {/* IMAGE */}
+          <motion.img
+            src="/like.jpeg"
+            style={image}
+            animate={{ x: mouse.x, y: mouse.y }}
+            whileHover={{ scale: 1.08 }}
+          />
+        </motion.div>
 
-  {/* PROJECT 1 */}
-  <div style={cardStyle}>
-    <h3>University Website UI</h3>
-    <p style={{ color: "#9ca3af" }}>
-      Full responsive website for an educational institution
-    </p>
+        {/* SERVICES */}
+        <motion.div style={section} animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}>
+          <h2>Services</h2>
+          <div style={grid}>
+            <GlassCard title="Website Development" />
+            <GlassCard title="Landing Pages" />
+            <GlassCard title="UI Improvements" />
+          </div>
+        </motion.div>
 
-    <div style={{ marginTop: "15px" }}>
-      <a href="https://github.com/WHITEDEVILdn/UNIVERSITY-WEBSITE" target="_blank">
-        <button style={btnStyle}>Code</button>
-      </a>
-    </div>
-  </div>
+        {/* EXPERIENCE */}
+        <motion.div style={section} animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}>
+          <h2>Experience</h2>
+          <Timeline title="Frontend Developer" />
+          <Timeline title="React Projects" />
+        </motion.div>
+{/* CONTACT */}
+<motion.div
+  id="contact"
+  style={section}
+  animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
+>
+  <h2>Contact</h2>
 
-  {/* PROJECT 2 */}
-  <div style={cardStyle}>
-    <h3>Personal Portfolio Website</h3>
-    <p style={{ color: "#9ca3af" }}>
-      Modern portfolio website to showcase projects
-    </p>
-
-    <div style={{ marginTop: "15px" }}>
-      <a href="https://personal-portfolio-website-livid-psi.vercel.app" target="_blank" rel="noopener noreferrer">
-  <button style={btnStyle}>Live</button>
-</a>
-    </div>
-  </div>
-
-  {/* PROJECT 3 */}
-  <div style={cardStyle}>
-    <h3>Business Web App UI</h3>
-    <p style={{ color: "#9ca3af" }}>
-      Dashboard-style web application UI
-    </p>
-
-    <div style={{ marginTop: "15px" }}>
-      <a href="https://github.com/WHITEDEVILdn/web-application-" target="_blank">
-        <button style={btnStyle}>Code</button>
-      </a>
-    </div>
-  </div>
-
-  {/* PROJECT 4 */}
-  <div style={cardStyle}>
-    <h3>Restaurant Website</h3>
-    <p style={{ color: "#9ca3af" }}>
-      Food business website with menu and contact
-    </p>
-
-    <div style={{ marginTop: "15px" }}>
-      <button style={btnStyle}>Demo</button>
-    </div>
-  </div>
-
-</div>
-
-        {/* WHY ME */}
-        <div style={{ padding: "70px 0" }}>
-          <h2 style={{ fontSize: "30px" }}>Why Choose Me</h2>
-
-          <ul style={{ marginTop: "20px", color: "#9ca3af", lineHeight: "1.8" }}>
-            <li>✔ Clean and modern UI design</li>
-            <li>✔ Fully responsive websites</li>
-            <li>✔ Fast loading performance</li>
-            <li>✔ Client-focused development</li>
-          </ul>
-        </div>
-
-        {/* WHAT I CAN DO */}
-        <div style={{ padding: "40px 0" }}>
-          <h2 style={{ fontSize: "30px" }}>What I Can Do For You</h2>
-
-          <ul style={{ marginTop: "20px", color: "#9ca3af", lineHeight: "1.8" }}>
-            <li>✔ Website design from scratch</li>
-            <li>✔ Convert Figma to website</li>
-            <li>✔ Fix website bugs</li>
-            <li>✔ Improve website speed</li>
-          </ul>
-        </div>
-
-        {/* SKILLS */}
-        <div style={{ padding: "40px 0" }}>
-          <h2 style={{ fontSize: "30px" }}>Skills</h2>
-          <p style={{ marginTop: "10px", color: "#9ca3af" }}>
-            React • JavaScript • HTML • CSS • Responsive Design
-          </p>
-        </div>
-
-        {/* CONTACT */}
-        <div style={{ textAlign: "center", padding: "80px 0" }}>
-          <h2 style={{ fontSize: "30px" }}>Contact</h2>
-          <p style={{ color: "#9ca3af", marginTop: "10px" }}>
-            vaibhav9997258362@gmail.com
-          </p>
-        </div>
+  <motion.button
+    whileHover={{ scale: 1.1 }}
+    style={btnPrimary}
+    onClick={() =>
+      window.open("mailto:vaibhav9997258362@gmail.com", "_blank")
+    }
+  >
+    Contact Me
+  </motion.button>
+</motion.div>
 
       </div>
     </div>
   );
 }
 
-/* CARD STYLE */
-const cardStyle = {
-  background: "#111827",
-  padding: "25px",
-  borderRadius: "16px",
-  width: "260px",
-  cursor: "pointer",
-  transition: "0.3s"
+////////////////////////////////////////////////////
+
+function ProjectCard({ title, mouse }) {
+  return (
+    <motion.div
+      whileHover={{ y: -10 }}
+      animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
+      style={glassCard}
+    >
+      <h3>{title}</h3>
+
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        style={projectBtn}
+      >
+        View
+      </motion.button>
+    </motion.div>
+  );
+}
+
+function GlassCard({ title }) {
+  return (
+    <motion.div whileHover={{ y: -10 }} style={glassCard}>
+      {title}
+    </motion.div>
+  );
+}
+
+function Timeline({ title }) {
+  return (
+    <motion.div whileHover={{ x: 10 }} style={timeline}>
+      {title}
+    </motion.div>
+  );
+}
+
+////////////////////////////////////////////////////
+
+// STYLES (RESPONSIVE SAFE)
+const mainStyle = {
+  background: "#020617",
+  color: "white",
+  minHeight: "100vh"
 };
-const btnStyle = {
-  background: "#facc15",
+
+const container = {
+  maxWidth: 1200,
+  margin: "auto",
+  padding: "40px 15px"
+};
+
+const hero = {
+  display: "flex",
+  gap: 40,
+  flexWrap: "wrap",
+  alignItems: "center"
+};
+
+const section = { marginTop: 80 };
+
+const heading = { fontSize: 42 };
+
+const typed = { color: "#facc15" };
+
+const image = {
+  width: "100%",
+  maxWidth: 260,
+  borderRadius: 20,
+  boxShadow: "0 0 60px rgba(250,204,21,0.5)"
+};
+
+const btnPrimary = {
+  background: "linear-gradient(135deg, #facc15, #fbbf24)",
+  padding: "10px 20px",
+  borderRadius: "999px",
+  border: "none",
+  marginRight: 10,
+  fontWeight: "bold",
+  cursor: "pointer"
+};
+
+const btnOutline = {
+  border: "1px solid #9ca3af",
+  padding: "10px 20px",
+  borderRadius: "999px",
+  background: "transparent",
+  color: "white"
+};
+
+const dropdown = {
+  position: "absolute",
+  top: "50px",
+  left: 0,
+  display: "flex",
+  gap: 15,
+  padding: 10
+};
+
+const grid = {
+  display: "flex",
+  gap: 20,
+  flexWrap: "wrap"
+};
+
+const glassCard = {
+  background: "rgba(255,255,255,0.05)",
+  backdropFilter: "blur(10px)",
+  padding: 20,
+  borderRadius: 15,
+  border: "1px solid rgba(255,255,255,0.1)",
+  width: "100%",
+  maxWidth: "250px",
+  textAlign: "center"
+};
+
+const projectBtn = {
+  background: "linear-gradient(135deg, #facc15, #fbbf24)",
   color: "black",
   padding: "8px 16px",
-  borderRadius: "8px",
+  borderRadius: "999px",
   border: "none",
-  cursor: "pointer",
-  marginRight: "10px",
-  fontSize: "14px"
+  marginTop: 10,
+  fontWeight: "bold",
+  cursor: "pointer"
 };
+
+const timeline = {
+  borderLeft: "2px solid #facc15",
+  padding: 10,
+  marginTop: 10
+};
+
+const cursorGlow = {
+  position: "fixed",
+  width: 240,
+  height: 240,
+  borderRadius: "50%",
+  background: "rgba(250,204,21,0.15)",
+  filter: "blur(100px)",
+  pointerEvents: "none"
+};
+
+const gridBg = {
+  position: "fixed",
+  width: "100%",
+  height: "100%",
+  backgroundImage:
+    "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
+  backgroundSize: "40px 40px"
+};
+
 export default App;
