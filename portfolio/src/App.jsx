@@ -34,8 +34,13 @@ function App() {
         {/* HERO */}
         <motion.div style={hero} animate={{ x: mouse.x * 0.5, y: mouse.y * 0.5 }}>
 
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1, minWidth: "280px" }}>
             <h1 style={heading}>Hi, I'm Vaibhav 👋</h1>
+
+            {/* 🔥 NEW SUBTEXT */}
+            <p style={subText}>
+              Building modern, high-performance web experiences
+            </p>
 
             <ReactTyped
               strings={["Frontend Developer", "React Developer", "Freelancer"]}
@@ -45,8 +50,7 @@ function App() {
               style={typed}
             />
 
-            <div style={{ marginTop: 20 }}>
-              {/* ✅ WORKING BUTTON */}
+            <div style={btnContainer}>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 style={btnPrimary}
@@ -59,7 +63,7 @@ function App() {
 
               {/* PROJECT DROPDOWN */}
               <div
-                style={{ position: "relative", display: "inline-block" }}
+                style={{ position: "relative" }}
                 onMouseEnter={() => setShowProjects(true)}
                 onMouseLeave={() => setShowProjects(false)}
               >
@@ -91,7 +95,14 @@ function App() {
         </motion.div>
 
         {/* SERVICES */}
-        <motion.div style={section} animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}>
+        <motion.div
+          style={section}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
+        >
           <h2>Services</h2>
           <div style={grid}>
             <GlassCard title="Website Development" />
@@ -101,29 +112,44 @@ function App() {
         </motion.div>
 
         {/* EXPERIENCE */}
-        <motion.div style={section} animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}>
+        <motion.div
+          style={section}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
+        >
           <h2>Experience</h2>
           <Timeline title="Frontend Developer" />
           <Timeline title="React Projects" />
         </motion.div>
-{/* CONTACT */}
-<motion.div
-  id="contact"
-  style={section}
-  animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
->
-  <h2>Contact</h2>
 
-  <motion.button
-    whileHover={{ scale: 1.1 }}
-    style={btnPrimary}
-    onClick={() =>
-      window.open("mailto:vaibhav9997258362@gmail.com", "_blank")
-    }
-  >
-    Contact Me
-  </motion.button>
-</motion.div>
+        {/* CONTACT */}
+        <motion.div
+          style={section}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
+        >
+          <h2>Contact</h2>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            style={btnPrimary}
+            onClick={() =>
+              window.open("mailto:vaibhav9997258362@gmail.com", "_blank")
+            }
+          >
+            Contact Me
+          </motion.button>
+        </motion.div>
+
+        {/* 🔥 FOOTER */}
+        <div style={footer}>
+          © 2026 Vaibhav Sharma • All rights reserved
+        </div>
 
       </div>
     </div>
@@ -135,16 +161,16 @@ function App() {
 function ProjectCard({ title, mouse }) {
   return (
     <motion.div
-      whileHover={{ y: -10 }}
+      whileHover={{
+        y: -10,
+        boxShadow: "0 20px 40px rgba(250,204,21,0.2)"
+      }}
       animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
       style={glassCard}
     >
       <h3>{title}</h3>
 
-      <motion.button
-        whileHover={{ scale: 1.1 }}
-        style={projectBtn}
-      >
+      <motion.button whileHover={{ scale: 1.1 }} style={projectBtn}>
         View
       </motion.button>
     </motion.div>
@@ -153,7 +179,13 @@ function ProjectCard({ title, mouse }) {
 
 function GlassCard({ title }) {
   return (
-    <motion.div whileHover={{ y: -10 }} style={glassCard}>
+    <motion.div
+      whileHover={{
+        y: -10,
+        boxShadow: "0 20px 40px rgba(250,204,21,0.15)"
+      }}
+      style={glassCard}
+    >
       {title}
     </motion.div>
   );
@@ -169,9 +201,13 @@ function Timeline({ title }) {
 
 ////////////////////////////////////////////////////
 
-// STYLES (RESPONSIVE SAFE)
+// STYLES
+
 const mainStyle = {
-  background: "#020617",
+  background: `
+    radial-gradient(circle at top, #0b0f19, #020617),
+    radial-gradient(circle at bottom, rgba(250,204,21,0.08), transparent)
+  `,
   color: "white",
   minHeight: "100vh"
 };
@@ -186,20 +222,38 @@ const hero = {
   display: "flex",
   gap: 40,
   flexWrap: "wrap",
-  alignItems: "center"
+  alignItems: "center",
+  justifyContent: "center"
 };
 
 const section = { marginTop: 80 };
 
-const heading = { fontSize: 42 };
+const heading = {
+  fontSize: 42,
+  fontWeight: "700",
+  letterSpacing: "-1px"
+};
+
+const subText = {
+  color: "#9ca3af",
+  marginTop: "10px"
+};
 
 const typed = { color: "#facc15" };
 
 const image = {
   width: "100%",
-  maxWidth: 260,
+  maxWidth: "320px",
   borderRadius: 20,
-  boxShadow: "0 0 60px rgba(250,204,21,0.5)"
+  boxShadow: "0 0 60px rgba(250,204,21,0.5)",
+  margin: "0 auto"
+};
+
+const btnContainer = {
+  marginTop: 20,
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "10px"
 };
 
 const btnPrimary = {
@@ -207,9 +261,9 @@ const btnPrimary = {
   padding: "10px 20px",
   borderRadius: "999px",
   border: "none",
-  marginRight: 10,
   fontWeight: "bold",
-  cursor: "pointer"
+  cursor: "pointer",
+  boxShadow: "0 5px 20px rgba(250,204,21,0.4)"
 };
 
 const btnOutline = {
@@ -224,15 +278,24 @@ const dropdown = {
   position: "absolute",
   top: "50px",
   left: 0,
+  right: 0,
+  margin: "auto",
+  width: "90vw",
+  maxWidth: "350px",
+  background: "#111827",
+  padding: "15px",
+  borderRadius: "12px",
   display: "flex",
-  gap: 15,
-  padding: 10
+  flexDirection: "column",
+  gap: "15px",
+  boxShadow: "0 20px 40px rgba(0,0,0,0.6)"
 };
 
 const grid = {
   display: "flex",
   gap: 20,
-  flexWrap: "wrap"
+  flexWrap: "wrap",
+  justifyContent: "center"
 };
 
 const glassCard = {
@@ -242,8 +305,9 @@ const glassCard = {
   borderRadius: 15,
   border: "1px solid rgba(255,255,255,0.1)",
   width: "100%",
-  maxWidth: "250px",
-  textAlign: "center"
+  maxWidth: "280px",
+  textAlign: "center",
+  boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
 };
 
 const projectBtn = {
@@ -261,6 +325,12 @@ const timeline = {
   borderLeft: "2px solid #facc15",
   padding: 10,
   marginTop: 10
+};
+
+const footer = {
+  textAlign: "center",
+  marginTop: 80,
+  color: "#6b7280"
 };
 
 const cursorGlow = {
