@@ -37,7 +37,6 @@ function App() {
           <div style={{ flex: 1, minWidth: "280px" }}>
             <h1 style={heading}>Hi, I'm Vaibhav 👋</h1>
 
-            {/* 🔥 NEW SUBTEXT */}
             <p style={subText}>
               Building modern, high-performance web experiences
             </p>
@@ -61,26 +60,31 @@ function App() {
                 Hire Me
               </motion.button>
 
-              {/* PROJECT DROPDOWN */}
-              <div
-                style={{ position: "relative" }}
-                onMouseEnter={() => setShowProjects(true)}
-                onMouseLeave={() => setShowProjects(false)}
-              >
-                <motion.button whileHover={{ scale: 1.05 }} style={btnOutline}>
+              {/* ✅ FIXED PROJECT SECTION */}
+              <div style={{ width: "100%" }}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  style={btnOutline}
+                  onClick={() => setShowProjects(!showProjects)}
+                >
                   View Projects
                 </motion.button>
 
-                {showProjects && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    style={dropdown}
-                  >
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={
+                    showProjects
+                      ? { height: "auto", opacity: 1 }
+                      : { height: 0, opacity: 0 }
+                  }
+                  transition={{ duration: 0.4 }}
+                  style={{ overflow: "hidden" }}
+                >
+                  <div style={projectWrapper}>
                     <ProjectCard title="University Website" mouse={mouse} />
                     <ProjectCard title="Portfolio Website" mouse={mouse} />
-                  </motion.div>
-                )}
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -146,7 +150,7 @@ function App() {
           </motion.button>
         </motion.div>
 
-        {/* 🔥 FOOTER */}
+        {/* FOOTER */}
         <div style={footer}>
           © 2026 Vaibhav Sharma • All rights reserved
         </div>
@@ -169,7 +173,6 @@ function ProjectCard({ title, mouse }) {
       style={glassCard}
     >
       <h3>{title}</h3>
-
       <motion.button whileHover={{ scale: 1.1 }} style={projectBtn}>
         View
       </motion.button>
@@ -201,8 +204,6 @@ function Timeline({ title }) {
 
 ////////////////////////////////////////////////////
 
-// STYLES
-
 const mainStyle = {
   background: `
     radial-gradient(circle at top, #0b0f19, #020617),
@@ -230,8 +231,7 @@ const section = { marginTop: 80 };
 
 const heading = {
   fontSize: 42,
-  fontWeight: "700",
-  letterSpacing: "-1px"
+  fontWeight: "700"
 };
 
 const subText = {
@@ -245,14 +245,13 @@ const image = {
   width: "100%",
   maxWidth: "320px",
   borderRadius: 20,
-  boxShadow: "0 0 60px rgba(250,204,21,0.5)",
-  margin: "0 auto"
+  boxShadow: "0 0 60px rgba(250,204,21,0.5)"
 };
 
 const btnContainer = {
   marginTop: 20,
   display: "flex",
-  flexWrap: "wrap",
+  flexDirection: "column",
   gap: "10px"
 };
 
@@ -262,8 +261,7 @@ const btnPrimary = {
   borderRadius: "999px",
   border: "none",
   fontWeight: "bold",
-  cursor: "pointer",
-  boxShadow: "0 5px 20px rgba(250,204,21,0.4)"
+  cursor: "pointer"
 };
 
 const btnOutline = {
@@ -274,21 +272,12 @@ const btnOutline = {
   color: "white"
 };
 
-const dropdown = {
-  position: "absolute",
-  top: "50px",
-  left: 0,
-  right: 0,
-  margin: "auto",
-  width: "90vw",
-  maxWidth: "350px",
-  background: "#111827",
-  padding: "15px",
-  borderRadius: "12px",
+const projectWrapper = {
   display: "flex",
-  flexDirection: "column",
-  gap: "15px",
-  boxShadow: "0 20px 40px rgba(0,0,0,0.6)"
+  gap: 15,
+  flexWrap: "wrap",
+  marginTop: 15,
+  justifyContent: "center"
 };
 
 const grid = {
@@ -306,8 +295,7 @@ const glassCard = {
   border: "1px solid rgba(255,255,255,0.1)",
   width: "100%",
   maxWidth: "280px",
-  textAlign: "center",
-  boxShadow: "0 10px 30px rgba(0,0,0,0.5)"
+  textAlign: "center"
 };
 
 const projectBtn = {
@@ -317,8 +305,7 @@ const projectBtn = {
   borderRadius: "999px",
   border: "none",
   marginTop: 10,
-  fontWeight: "bold",
-  cursor: "pointer"
+  fontWeight: "bold"
 };
 
 const timeline = {
