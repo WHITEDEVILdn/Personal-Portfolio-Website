@@ -1,202 +1,146 @@
 /* eslint-disable react/prop-types */
 import { motion } from "framer-motion";
-import { ReactTyped } from "react-typed";
-import { useState } from "react";
 
 function App() {
-  const [showProjects, setShowProjects] = useState(false);
-  const [pos, setPos] = useState({ x: 0, y: 0 });
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-
   return (
-    <div
-      onMouseMove={(e) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 20;
-        const y = (e.clientY / window.innerHeight - 0.5) * 20;
-        setMouse({ x, y });
-        setPos({ x: e.clientX, y: e.clientY });
-      }}
-      style={mainStyle}
-    >
+    <div style={mainStyle}>
 
-      {/* GRID */}
-      <div style={gridBg}></div>
-
-      {/* CURSOR GLOW */}
-      <motion.div
-        animate={{ x: pos.x - 120, y: pos.y - 120 }}
-        transition={{ type: "spring", stiffness: 50 }}
-        style={cursorGlow}
-      />
+      {/* NAVBAR */}
+      <div style={navbar}>
+        <h3>Vaibhav</h3>
+        <a href="#contact" style={navBtn}>Contact</a>
+      </div>
 
       <div style={container}>
 
         {/* HERO */}
-        <motion.div style={hero} animate={{ x: mouse.x * 0.5, y: mouse.y * 0.5 }}>
+        <motion.div
+          style={hero}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <h1 style={heading}>
+            I design & build <br /> modern web experiences
+          </h1>
 
-          <div style={{ flex: 1, minWidth: "280px" }}>
-            <h1 style={heading}>Hi, I'm Vaibhav 👋</h1>
+          <p style={subText}>
+            Frontend Developer focused on clean UI & smooth interactions
+          </p>
 
-            <p style={subText}>
-              Building modern, high-performance web experiences
-            </p>
+          <button
+            style={btnPrimary}
+            onClick={() =>
+              window.open("https://wa.me/919997258362", "_blank")
+            }
+          >
+            Let’s Work Together
+          </button>
+        </motion.div>
 
-            <ReactTyped
-              strings={["Frontend Developer", "React Developer", "Freelancer"]}
-              typeSpeed={50}
-              backSpeed={30}
-              loop
-              style={typed}
+        {/* PROJECTS */}
+        <div style={section}>
+          <h2 style={sectionTitle}>Selected Work</h2>
+
+          <div style={projectGrid}>
+
+            <ProjectCard
+              title="Portfolio Website"
+              img="/personal.png"
+              link="https://github.com/WHITEDEVILdn/Personal-Portfolio-Website"
             />
 
-            <div style={btnContainer}>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                style={btnPrimary}
-                onClick={() =>
-                  window.open("mailto:vaibhav9997258362@gmail.com", "_blank")
-                }
-              >
-                Hire Me
-              </motion.button>
+            <ProjectCard
+              title="University Website"
+              img="/website.png"
+              link="https://github.com/WHITEDEVILdn/University-Website-UI"
+            />
 
-              {/* ✅ FIXED PROJECT SECTION */}
-              <div style={{ width: "100%" }}>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  style={btnOutline}
-                  onClick={() => setShowProjects(!showProjects)}
-                >
-                  View Projects
-                </motion.button>
-
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={
-                    showProjects
-                      ? { height: "auto", opacity: 1 }
-                      : { height: 0, opacity: 0 }
-                  }
-                  transition={{ duration: 0.4 }}
-                  style={{ overflow: "hidden" }}
-                >
-                  <div style={projectWrapper}>
-                    <ProjectCard title="University Website" mouse={mouse} />
-                    <ProjectCard title="Portfolio Website" mouse={mouse} />
-                  </div>
-                </motion.div>
-              </div>
-            </div>
           </div>
-
-          {/* IMAGE */}
-          <motion.img
-            src="/like.jpeg"
-            style={image}
-            animate={{ x: mouse.x, y: mouse.y }}
-            whileHover={{ scale: 1.08 }}
-          />
-        </motion.div>
+        </div>
 
         {/* SERVICES */}
-        <motion.div
-          style={section}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
-        >
-          <h2>Services</h2>
-          <div style={grid}>
-            <GlassCard title="Website Development" />
-            <GlassCard title="Landing Pages" />
-            <GlassCard title="UI Improvements" />
-          </div>
-        </motion.div>
+        <div style={section}>
+          <h2 style={sectionTitle}>What I Do</h2>
 
-        {/* EXPERIENCE */}
-        <motion.div
-          style={section}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
-        >
-          <h2>Experience</h2>
-          <Timeline title="Frontend Developer" />
-          <Timeline title="React Projects" />
-        </motion.div>
+          <div style={cardGrid}>
+            <Card title="Website Development" />
+            <Card title="Landing Pages" />
+            <Card title="UI/UX Optimization" />
+          </div>
+        </div>
+
+        {/* ABOUT */}
+        <div style={section}>
+          <h2 style={sectionTitle}>About Me</h2>
+          <p style={aboutText}>
+            I build modern, responsive and high-performance websites.
+            I focus on clean design, smooth animations and user experience.
+          </p>
+        </div>
 
         {/* CONTACT */}
-        <motion.div
-          style={section}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
-        >
-          <h2>Contact</h2>
-          <motion.button
-            whileHover={{ scale: 1.1 }}
+        <div id="contact" style={section}>
+          <h2 style={sectionTitle}>Let’s Work Together</h2>
+
+          <button
             style={btnPrimary}
             onClick={() =>
               window.open("mailto:vaibhav9997258362@gmail.com", "_blank")
             }
           >
             Contact Me
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
 
         {/* FOOTER */}
         <div style={footer}>
-          © 2026 Vaibhav Sharma • All rights reserved
+          © 2026 Vaibhav Sharma
         </div>
 
       </div>
+
+      {/* 🔥 FLOATING CHAT BUTTON */}
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        style={floatingBtn}
+        onClick={() =>
+          window.open(
+            "https://wa.me/919997258362?text=Hi%20Vaibhav%2C%20I%20visited%20your%20portfolio%20and%20want%20to%20discuss%20a%20project.",
+            "_blank"
+          )
+        }
+      >
+        💬 Chat with us
+      </motion.button>
+
     </div>
   );
 }
 
 ////////////////////////////////////////////////////
 
-function ProjectCard({ title, mouse }) {
+// PROJECT CARD
+function ProjectCard({ title, img, link }) {
   return (
     <motion.div
-      whileHover={{
-        y: -10,
-        boxShadow: "0 20px 40px rgba(250,204,21,0.2)"
-      }}
-      animate={{ x: mouse.x * 0.3, y: mouse.y * 0.3 }}
-      style={glassCard}
+      whileHover={{ scale: 1.03 }}
+      style={projectCard}
+      onClick={() => window.open(link, "_blank")}
     >
-      <h3>{title}</h3>
-      <motion.button whileHover={{ scale: 1.1 }} style={projectBtn}>
-        View
-      </motion.button>
+      <img src={img} style={projectImg} alt={title} />
+
+      <div style={overlay}>
+        <h3>{title}</h3>
+        <span style={viewBtn}>View Project →</span>
+      </div>
     </motion.div>
   );
 }
 
-function GlassCard({ title }) {
+// SERVICE CARD
+function Card({ title }) {
   return (
-    <motion.div
-      whileHover={{
-        y: -10,
-        boxShadow: "0 20px 40px rgba(250,204,21,0.15)"
-      }}
-      style={glassCard}
-    >
-      {title}
-    </motion.div>
-  );
-}
-
-function Timeline({ title }) {
-  return (
-    <motion.div whileHover={{ x: 10 }} style={timeline}>
+    <motion.div whileHover={{ y: -6 }} style={card}>
       {title}
     </motion.div>
   );
@@ -204,139 +148,140 @@ function Timeline({ title }) {
 
 ////////////////////////////////////////////////////
 
+// STYLES
+
 const mainStyle = {
-  background: `
-    radial-gradient(circle at top, #0b0f19, #020617),
-    radial-gradient(circle at bottom, rgba(250,204,21,0.08), transparent)
-  `,
+  background: "#020617",
   color: "white",
   minHeight: "100vh"
 };
 
+const navbar = {
+  position: "fixed",
+  top: 0,
+  width: "100%",
+  padding: "15px 20px",
+  display: "flex",
+  justifyContent: "space-between",
+  background: "rgba(2,6,23,0.7)",
+  backdropFilter: "blur(10px)",
+  zIndex: 1000
+};
+
+const navBtn = {
+  color: "#facc15",
+  textDecoration: "none"
+};
+
 const container = {
-  maxWidth: 1200,
+  maxWidth: 1000,
   margin: "auto",
-  padding: "40px 15px"
+  padding: "100px 20px"
 };
 
 const hero = {
-  display: "flex",
-  gap: 40,
-  flexWrap: "wrap",
-  alignItems: "center",
-  justifyContent: "center"
+  textAlign: "center"
 };
 
-const section = { marginTop: 80 };
-
 const heading = {
-  fontSize: 42,
+  fontSize: "42px",
   fontWeight: "700"
 };
 
 const subText = {
   color: "#9ca3af",
-  marginTop: "10px"
-};
-
-const typed = { color: "#facc15" };
-
-const image = {
-  width: "100%",
-  maxWidth: "320px",
-  borderRadius: 20,
-  boxShadow: "0 0 60px rgba(250,204,21,0.5)"
-};
-
-const btnContainer = {
-  marginTop: 20,
-  display: "flex",
-  flexDirection: "column",
-  gap: "10px"
-};
-
-const btnPrimary = {
-  background: "linear-gradient(135deg, #facc15, #fbbf24)",
-  padding: "10px 20px",
-  borderRadius: "999px",
-  border: "none",
-  fontWeight: "bold",
-  cursor: "pointer"
-};
-
-const btnOutline = {
-  border: "1px solid #9ca3af",
-  padding: "10px 20px",
-  borderRadius: "999px",
-  background: "transparent",
-  color: "white"
-};
-
-const projectWrapper = {
-  display: "flex",
-  gap: 15,
-  flexWrap: "wrap",
-  marginTop: 15,
-  justifyContent: "center"
-};
-
-const grid = {
-  display: "flex",
-  gap: 20,
-  flexWrap: "wrap",
-  justifyContent: "center"
-};
-
-const glassCard = {
-  background: "rgba(255,255,255,0.05)",
-  backdropFilter: "blur(10px)",
-  padding: 20,
-  borderRadius: 15,
-  border: "1px solid rgba(255,255,255,0.1)",
-  width: "100%",
-  maxWidth: "280px",
-  textAlign: "center"
-};
-
-const projectBtn = {
-  background: "linear-gradient(135deg, #facc15, #fbbf24)",
-  color: "black",
-  padding: "8px 16px",
-  borderRadius: "999px",
-  border: "none",
-  marginTop: 10,
-  fontWeight: "bold"
-};
-
-const timeline = {
-  borderLeft: "2px solid #facc15",
-  padding: 10,
   marginTop: 10
 };
 
-const footer = {
-  textAlign: "center",
-  marginTop: 80,
-  color: "#6b7280"
+const section = {
+  marginTop: "120px"
 };
 
-const cursorGlow = {
-  position: "fixed",
-  width: 240,
-  height: 240,
-  borderRadius: "50%",
-  background: "rgba(250,204,21,0.15)",
-  filter: "blur(100px)",
-  pointerEvents: "none"
+const sectionTitle = {
+  fontSize: "26px",
+  marginBottom: "20px"
 };
 
-const gridBg = {
-  position: "fixed",
+const projectGrid = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "30px"
+};
+
+const projectCard = {
+  position: "relative",
+  borderRadius: "16px",
+  overflow: "hidden",
+  cursor: "pointer"
+};
+
+const projectImg = {
   width: "100%",
-  height: "100%",
-  backgroundImage:
-    "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-  backgroundSize: "40px 40px"
+  display: "block"
+};
+
+const overlay = {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  width: "100%",
+  padding: "20px",
+  background: "linear-gradient(transparent, rgba(0,0,0,0.8))"
+};
+
+const viewBtn = {
+  color: "#facc15",
+  fontSize: "14px"
+};
+
+const cardGrid = {
+  display: "flex",
+  gap: "20px",
+  flexWrap: "wrap"
+};
+
+const card = {
+  padding: "20px",
+  background: "#111827",
+  borderRadius: "12px"
+};
+
+const aboutText = {
+  color: "#9ca3af",
+  maxWidth: "600px"
+};
+
+const btnPrimary = {
+  background: "#facc15",
+  padding: "10px 20px",
+  borderRadius: "999px",
+  border: "none",
+  cursor: "pointer",
+  marginTop: 20
+};
+
+const floatingBtn = {
+  position: "fixed",
+  bottom: "20px",
+  right: "20px",
+  background: "#facc15",
+  borderRadius: "999px",
+  padding: "10px 16px",
+  border: "none",
+  cursor: "pointer",
+  fontSize: "14px",
+  fontWeight: "bold",
+  display: "flex",
+  alignItems: "center",
+  gap: "6px",
+  boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
+  zIndex: 1000
+};
+
+const footer = {
+  marginTop: "100px",
+  textAlign: "center",
+  color: "#6b7280"
 };
 
 export default App;
